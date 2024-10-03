@@ -59,6 +59,7 @@ Lista *cadastrar(Chapas *chapas, int qnt_chapas, Lista *lst){
 
         printf("->Digite o numero da chapa: ");
         scanf("%d", &novaChapa->num);
+        novaChapa->num = verificar_numero(lst, novaChapa->num);
 
         printf("->Digite a data de nascimento do candidato(dia/mes/ano): ");
         for(int i= 0; i < 3;i++){
@@ -116,12 +117,12 @@ void votacao(Lista *lst){
     }
 }
 
-void printar_votos(Lista *lst){
+void printar_boletimPrimeiroTurno(Lista *lst, FILE *boletim){
     Lista *atual = lst;
     int count = 1;
 
     while (atual != NULL) {
-        printf("Chapa %d\n", count);
+        printf("\nChapa %d\n", count);
         printf("Prefeito: %s\n", atual->inicio->candidato);
         printf("Vice: %s\n", atual->inicio->vice);
         printf("Numero: %d\n", atual->inicio->num);
@@ -143,4 +144,17 @@ void liberar_lista(Lista *lst){
         free(atual);
         atual = proximo;
     }
+}
+
+int verificar_numero(Lista *lst, int voto){
+    Lista *aux = lst;
+
+    while(aux != NULL){
+        while(aux->inicio->num == voto){
+            printf("Este numero ja foi cadastrado, por favor, digite outro: ");
+            scanf("%d", &voto);
+        }
+        aux = aux->prox;
+    }
+    return voto;
 }

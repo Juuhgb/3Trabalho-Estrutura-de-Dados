@@ -8,12 +8,13 @@ int main(){
     int qnt_chapas;
     Lista *lst = NULL;
 
-    fopen("eleitores.txt", "w");
+    FILE *boletimPrimeiroTurno = fopen("boletimTurno1.txt", "w");
 
     Chapas *chapas = criar_chapas();
     printf("-----------------------------------------\n");
     printf("|Eleicoes do Executivo Municipal de 2024|\n");
     printf("-----------------------------------------\n");
+
     printf("->Digite o numero de eleitores:\n");
     scanf("%d", &qnt_eleitores);
 
@@ -37,7 +38,6 @@ int main(){
         votacao(lst);
     }
 
-    printar_votos(lst);
-
+    printar_boletimPrimeiroTurno(lst, boletimPrimeiroTurno);
     liberar_lista(lst);
 }

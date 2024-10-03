@@ -15,8 +15,10 @@ void printar_chapas(Lista *lst);
 
 void votacao(Lista *lst);
 
-void printar_votos(Lista *lst);
+void printar_boletimPrimeiroTurno(Lista *lst, FILE *boletimPrimeiroTurno);
 
 void liberar_lista(Lista *lst);
+
+int verificar_numero(Lista *lst, int voto);
 
 #endif // TRABALHO3_H
