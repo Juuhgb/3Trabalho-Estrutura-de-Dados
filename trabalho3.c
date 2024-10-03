@@ -11,9 +11,9 @@ int main(){
     fopen("eleitores.txt", "w");
 
     Chapas *chapas = criar_chapas();
-    printf("----------------------------------------\n");
+    printf("-----------------------------------------\n");
     printf("|Eleicoes do Executivo Municipal de 2024|\n");
-    printf("----------------------------------------\n");
+    printf("-----------------------------------------\n");
     printf("->Digite o numero de eleitores:\n");
     scanf("%d", &qnt_eleitores);
 
@@ -24,6 +24,7 @@ int main(){
         printf("Maximo de chapas e 100, digite outro valor\n");
         scanf("%d", &qnt_chapas);
     }
+    getchar();
     
     lst = cadastrar(chapas, qnt_chapas, lst);
 
@@ -35,4 +36,8 @@ int main(){
     for(int i = 0; i < qnt_eleitores; i++){
         votacao(lst);
     }
+
+    printar_votos(lst);
+
+    liberar_lista(lst);
 }

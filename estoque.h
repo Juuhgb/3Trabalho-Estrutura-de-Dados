@@ -15,4 +15,8 @@ void printar_chapas(Lista *lst);
 
 void votacao(Lista *lst);
 
+void printar_votos(Lista *lst);
+
+void liberar_lista(Lista *lst);
+
 #endif // TRABALHO3_H
