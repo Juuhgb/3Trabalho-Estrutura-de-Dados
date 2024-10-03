@@ -116,8 +116,6 @@ void votacao(Lista *lst){
     }
 }
 
-
-
 void printar_votos(Lista *lst){
     Lista *atual = lst;
     int count = 1;
