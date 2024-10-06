@@ -99,6 +99,7 @@ void votacao(Lista *lst){
     getchar();
 
     if(voto == 0){
+        printf("Voto em branco!\n");
         votoBranco++;
     }
     else if(voto <= 99){
@@ -111,8 +112,11 @@ void votacao(Lista *lst){
             }
             atual = atual->prox;
         }
+        printf("Voto nulo!\n");
+        votoNulo++;
     }
     else{
+        printf("Voto nulo!\n");
         votoNulo++;
     }
 }
@@ -122,16 +126,17 @@ void printar_boletimPrimeiroTurno(Lista *lst, FILE *boletim){
     int count = 1;
 
     while (atual != NULL) {
-        printf("\nChapa %d\n", count);
-        printf("Prefeito: %s\n", atual->inicio->candidato);
-        printf("Vice: %s\n", atual->inicio->vice);
-        printf("Numero: %d\n", atual->inicio->num);
-        printf("Votos: %d\n", atual->inicio->votos);
-        printf("\n");
+        fprintf(boletim,"Chapa %d\n", count);
+        fprintf(boletim, "Prefeito: %s\n", atual->inicio->candidato);
+        fprintf(boletim, "Vice: %s\n", atual->inicio->vice);
+        fprintf(boletim, "Numero: %d\n", atual->inicio->num);
+        fprintf(boletim, "Votos: %d\n", atual->inicio->votos);
+        fprintf(boletim, "\n");
 
         atual = atual->prox;
         count++;
     }
+    fprintf(boletim, "Votos Validos: %d\nVotos totais: %d\nVotos Brancos: %d\nVotos Nulos: %d\n",votoValido, votoValido+votoBranco+votoNulo, votoBranco, votoNulo);
 }
 
 void liberar_lista(Lista *lst){
