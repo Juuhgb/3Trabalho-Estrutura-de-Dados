@@ -29,6 +29,7 @@ int main(){
     
     lst = cadastrar(chapas, qnt_chapas, lst);
 
+    system("cls");
     printf("--------------------\n");
     printf("|Chapas Cadastradas|\n");
     printf("--------------------\n");
@@ -39,5 +40,13 @@ int main(){
     }
 
     printar_boletimPrimeiroTurno(lst, boletimPrimeiroTurno);
+    
+    system("cls");
+    printf("----------------------\n");
+    printf("|Resultado do 1 Turno|\n");
+    printf("----------------------\n");
+    
+    verificar_segundoTurno(lst, qnt_eleitores, boletimPrimeiroTurno);
+    
     liberar_lista(lst);
 }

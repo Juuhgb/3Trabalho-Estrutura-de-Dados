@@ -139,10 +139,12 @@ void printar_boletimPrimeiroTurno(Lista *lst, FILE *boletim){
     float porcetagemVotosValidos = (votoValido*100)/(votoValido+votoBranco+votoNulo);
     float porcetagemVotosBranco = (votoBranco*100)/(votoValido+votoBranco+votoNulo);
     float porcetagemVotosNulos = (votoNulo*100)/(votoValido+votoBranco+votoNulo);
+    float porcetagemRelacaoAosEleitores = (votoValido*100)/(votoValido+votoBranco+votoNulo);
+    float porcetagemVotosNulosBrancos = ((votoBranco+votoNulo)*100)/(votoValido+votoBranco+votoNulo);
 
     fprintf(boletim, "Votos Validos: %d\nVotos totais: %d\nVotos Brancos: %d\nVotos Nulos: %d\n",votoValido, votoValido+votoBranco+votoNulo, votoBranco, votoNulo);
-
-    fprintf(boletim, "Porcentagem de votos validos: %.2f%%\nPorcentagem de votos brancos: %.2f%%\nPorcentagem de votos nulos: %.2f%%\n", porcetagemVotosValidos, porcetagemVotosBranco, porcetagemVotosNulos);
+    printf("\n\n");
+    fprintf(boletim, "Porcentagem de votos validos: %.2f%\nPorcentagem de votos brancos: %.2f%\nPorcentagem de votos nulos: %.2f%\nPorcentagem em Relação aos eleitores: %.2f%\nPorcentagem dos votos nulos e brancos: %.2f%", porcetagemVotosValidos, porcetagemVotosBranco, porcetagemVotosNulos,porcetagemRelacaoAosEleitores, porcetagemVotosNulosBrancos);
 }
 
 void liberar_lista(Lista *lst){
@@ -172,19 +174,22 @@ int verificar_numero(Lista *lst, int voto){
 
 void verificar_segundoTurno(Lista *lst, int quantidadeEleitores, FILE *boletim){
     int candidatoVencedor = 0;
+    printf("Votos validos: %d\n", votoValido);
+    Lista *chapaVencedora = NULL;
+
     if(quantidadeEleitores > 10 && lst->inicio->votos > 0){
-        Lista *chapaVencedora = NULL;
         for(chapaVencedora = lst; chapaVencedora != NULL; chapaVencedora = chapaVencedora->prox){
-            if(chapaVencedora->inicio->votos > (chapaVencedora->inicio->votos/2)){
+            if(chapaVencedora->inicio->votos > (votoValido/2)){
                 fprintf(boletim, "Chapa vencedora: %s\n", chapaVencedora->inicio->candidato);
                 candidatoVencedor = 1;
+                break;
             }
         }
     }
-    if(!candidatoVencedor){
-        printf("Nao houve vencedor no primeiro turno, vamos para o segundo turno!\n");
+    if(candidatoVencedor){
+        printf("Nao precisara de 2 turno");
     }
     else{
-        printf("Nao precisara de 2 turno");
+        printf("Nao houve vencedor no primeiro turno, vamos para o segundo turno!\n");
     }
 }

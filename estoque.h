@@ -21,4 +21,6 @@ void liberar_lista(Lista *lst);
 
 int verificar_numero(Lista *lst, int voto);
 
+void verificar_segundoTurno(Lista *lst, int quantidadeEleitores, FILE *boletim);
+
 #endif // TRABALHO3_H
