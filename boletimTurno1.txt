@@ -1,21 +1,25 @@
 Chapa 1
-Prefeito: juliana
-Vice: eduardo
+Prefeito: ju
+Vice: edu
 Numero: 13
-Votos: 0
+Votos: 10
 
 Chapa 2
-Prefeito: eduardo
-Vice: juliana
-Numero: 22
-Votos: 10
+Prefeito: edu
+Vice: 22
+Numero: 12
+Votos: 0
 
 Votos Validos: 10
 Votos totais: 10
 Votos Brancos: 0
 Votos Nulos: 0
+
+
+
+
 Porcentagem de votos validos: 100.00
 Porcentagem de votos brancos: 0.00
 Porcentagem de votos nulos: 0.00
 Porcentagem em Relação aos eleitores: 100.00
-Porcentagem dos votos nulos e brancos: 0.00
+Porcentagem dos votos nulos e brancos: 0.00Chapa vencedora: ju

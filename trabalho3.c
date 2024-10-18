@@ -27,12 +27,13 @@ int main(){
     }
     getchar();
     
-    lst = cadastrar(chapas, qnt_chapas, lst);
+    lst = cadastrar(qnt_chapas, lst);
 
     system("cls");
     printf("--------------------\n");
     printf("|Chapas Cadastradas|\n");
     printf("--------------------\n");
+
     printar_chapas(lst);
 
     for(int i = 0; i < qnt_eleitores; i++){
@@ -46,7 +47,22 @@ int main(){
     printf("|Resultado do 1 Turno|\n");
     printf("----------------------\n");
     
-    verificar_segundoTurno(lst, qnt_eleitores, boletimPrimeiroTurno);
+    int resultado = verificar_segundoTurno(lst, qnt_eleitores, boletimPrimeiroTurno);
     
     liberar_lista(lst);
+    fclose(boletimPrimeiroTurno);
+
+    if(resultado == 1){
+        FILE *boletimSegundoTurno = fopen("boletimTurno2.txt", "w");
+        system("cls");
+        printf("-----------------------------\n");
+        printf("|Candidatos do Segundo turno|\n");
+        printf("-----------------------------\n");
+        for(int i = 0; i < qnt_eleitores; i++){
+            votacao(lst);
+        }
+        printar_boletimPrimeiroTurno(lst, boletimSegundoTurno);
+        liberar_lista(lst);
+        fclose(boletimSegundoTurno);
+    }
 }

@@ -7,7 +7,7 @@ typedef struct lista Lista;
 
 Chapas *criar_chapas();
 
-Lista *cadastrar(Chapas *chapas, int qnt_chapas , Lista *lst);
+Lista *cadastrar(int qnt_chapas , Lista *lst);
 
 Lista* inserir_chapas(Lista *chalstpas, Chapas *novaChapa);
 
@@ -21,6 +21,6 @@ void liberar_lista(Lista *lst);
 
 int verificar_numero(Lista *lst, int voto);
 
-void verificar_segundoTurno(Lista *lst, int quantidadeEleitores, FILE *boletim);
+int verificar_segundoTurno(Lista *lst, int quantidadeEleitores, FILE *boletim);
 
 #endif // TRABALHO3_H

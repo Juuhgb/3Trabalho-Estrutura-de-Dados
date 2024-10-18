@@ -38,7 +38,7 @@ Lista* inserir_chapas(Lista *lst, Chapas *novaChapa){
     return novo;
 }
 
-Lista *cadastrar(Chapas *chapas, int qnt_chapas, Lista *lst){
+Lista *cadastrar(int qnt_chapas, Lista *lst){
     for(int i = 0; i < qnt_chapas; i++){
         Chapas *novaChapa = (Chapas*) malloc(sizeof(Chapas));
 
@@ -94,6 +94,12 @@ void printar_chapas(Lista *lst) {
 void votacao(Lista *lst){
     Lista *atual = lst;
     int voto;
+
+    if(lst == NULL){
+        printf("Nao ha chapas cadastradas!\n");
+        return;
+    }
+
     printf("->Digite o numero da chapa que deseja votar: ");
     scanf("%d", &voto);
     getchar();
@@ -143,8 +149,8 @@ void printar_boletimPrimeiroTurno(Lista *lst, FILE *boletim){
     float porcetagemVotosNulosBrancos = ((votoBranco+votoNulo)*100)/(votoValido+votoBranco+votoNulo);
 
     fprintf(boletim, "Votos Validos: %d\nVotos totais: %d\nVotos Brancos: %d\nVotos Nulos: %d\n",votoValido, votoValido+votoBranco+votoNulo, votoBranco, votoNulo);
-    printf("\n\n");
-    fprintf(boletim, "Porcentagem de votos validos: %.2f%\nPorcentagem de votos brancos: %.2f%\nPorcentagem de votos nulos: %.2f%\nPorcentagem em Relação aos eleitores: %.2f%\nPorcentagem dos votos nulos e brancos: %.2f%", porcetagemVotosValidos, porcetagemVotosBranco, porcetagemVotosNulos,porcetagemRelacaoAosEleitores, porcetagemVotosNulosBrancos);
+    fprintf(boletim,"\n");
+    fprintf(boletim, "Porcentagem de votos validos: %.2f%\nPorcentagem de votos brancos: %.2f%\nPorcentagem de votos nulos: %.2f%\nPorcentagem em Relação aos eleitores: %.2f%\nPorcentagem dos votos nulos e brancos: %.2f%\n", porcetagemVotosValidos, porcetagemVotosBranco, porcetagemVotosNulos,porcetagemRelacaoAosEleitores, porcetagemVotosNulosBrancos);
 }
 
 void liberar_lista(Lista *lst){
@@ -172,24 +178,33 @@ int verificar_numero(Lista *lst, int voto){
     return voto;
 }
 
-void verificar_segundoTurno(Lista *lst, int quantidadeEleitores, FILE *boletim){
+int verificar_segundoTurno(Lista *lst, int quantidadeEleitores, FILE *boletim){
     int candidatoVencedor = 0;
+
+    if(lst == NULL){
+        printf("Nao ha chapas cadastradas!\n");
+        return;
+    }
+
     printf("Votos validos: %d\n", votoValido);
     Lista *chapaVencedora = NULL;
 
-    if(quantidadeEleitores > 10 && lst->inicio->votos > 0){
+    if(quantidadeEleitores >= 10 && votoValido > 0){
         for(chapaVencedora = lst; chapaVencedora != NULL; chapaVencedora = chapaVencedora->prox){
-            if(chapaVencedora->inicio->votos > (votoValido/2)){
+            if(chapaVencedora->inicio->votos > ((float)votoValido/2.0)){
                 fprintf(boletim, "Chapa vencedora: %s\n", chapaVencedora->inicio->candidato);
+                printf("Candidato vencedor: %s\n", chapaVencedora->inicio->candidato);
                 candidatoVencedor = 1;
-                break;
+                return 0;
             }
         }
     }
     if(candidatoVencedor){
         printf("Nao precisara de 2 turno");
+        return 0;
     }
     else{
         printf("Nao houve vencedor no primeiro turno, vamos para o segundo turno!\n");
+        return 1;
     }
 }
