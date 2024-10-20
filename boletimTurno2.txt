@@ -1,18 +1,18 @@
-Candidato mais velho e o juliana, logo e o vencedor!
+Candidato vencedor: 321
 Chapa 1
-Prefeito: juliana
-Vice: luana
-Numero: 22
-Votos: 5
+Prefeito: 13
+Vice: 123
+Numero: 123
+Votos: 0
 
 Chapa 2
-Prefeito: bolso
-Vice: lula
-Numero: 13
-Votos: 5
+Prefeito: 321
+Vice: 21
+Numero: 21
+Votos: 2
 
-Votos Validos: 10
-Votos totais: 10
+Votos Validos: 2
+Votos totais: 2
 Votos Brancos: 0
 Votos Nulos: 0
 
