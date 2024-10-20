@@ -199,6 +199,7 @@ void verificar_segundoTurno(Lista *lst, int quantidadeEleitores, FILE *boletim){
         }
         atual = atual->prox;
     }
+    
     Lista *listaSegundoTurno = NULL;
     listaSegundoTurno = inserir_chapas(listaSegundoTurno, chapaMaisVotada1->inicio);
     listaSegundoTurno = inserir_chapas(listaSegundoTurno, chapaMaisVotada2->inicio);
@@ -220,10 +221,16 @@ void verificar_segundoTurno(Lista *lst, int quantidadeEleitores, FILE *boletim){
         printf("Nao precisa de segundo turno");
         return;
     }
-    else{
+
+    if(quantidadeEleitores >= 10){
         fprintf(boletim, "Nao houve vencedor no primeiro turno, vamos para o segundo turno!\n");
-        printf("Nao houve vencedor no primeiro turno, vamos para o segundo turno!\n\n");
         segundoTurno = 1;
+    }
+    else{
+        printf("Menos de 10 eleitores, vencedor determinado pelo primeiro turno.\n");
+        fprintf(boletim, "Candidato vencedor: %s\n", chapaMaisVotada1->inicio->candidato);
+        printf("Candidato vencedor: %s\n", chapaMaisVotada1->inicio->candidato);
+        return;
     }
 
     if(segundoTurno){

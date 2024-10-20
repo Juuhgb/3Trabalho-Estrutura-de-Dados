@@ -1,24 +1,24 @@
-Candidato vencedor: 321
+Candidato vencedor: juu
 Chapa 1
-Prefeito: 13
-Vice: 123
-Numero: 123
-Votos: 0
+Prefeito: lula
+Vice: polvo
+Numero: 22
+Votos: 1
 
 Chapa 2
-Prefeito: 321
-Vice: 21
-Numero: 21
-Votos: 2
+Prefeito: juu
+Vice: lu
+Numero: 13
+Votos: 0
 
-Votos Validos: 2
+Votos Validos: 1
 Votos totais: 2
 Votos Brancos: 0
-Votos Nulos: 0
+Votos Nulos: 1
 
-Porcentagem de votos validos: 100.00%
+Porcentagem de votos validos: 50.00%
 Porcentagem de votos brancos: 0.00%
-Porcentagem de votos nulos: 0.00%
-Porcentagem em Relação aos eleitores: 100.00%
-Porcentagem dos votos nulos e brancos: 0.00%
+Porcentagem de votos nulos: 50.00%
+Porcentagem em Relação aos eleitores: 50.00%
+Porcentagem dos votos nulos e brancos: 50.00%
 
