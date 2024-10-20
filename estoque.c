@@ -6,6 +6,7 @@
 int votoNulo, votoBranco, votoValido;
 
 typedef struct chapas Chapas;
+typedef struct lista Lista;
 
 struct chapas{
     char candidato[50];
@@ -14,8 +15,6 @@ struct chapas{
     int data_nascimento[3];
     int votos;
 };
-
-typedef struct lista Lista;
 
 struct lista{
     Chapas *inicio;
@@ -127,7 +126,7 @@ void votacao(Lista *lst){
     }
 }
 
-void printar_boletimPrimeiroTurno(Lista *lst, FILE *boletim){
+void printar_boletim(Lista *lst, FILE *boletim){
     Lista *atual = lst;
     int count = 1;
 
@@ -142,15 +141,15 @@ void printar_boletimPrimeiroTurno(Lista *lst, FILE *boletim){
         atual = atual->prox;
         count++;
     }
-    float porcetagemVotosValidos = (votoValido*100)/(votoValido+votoBranco+votoNulo);
-    float porcetagemVotosBranco = (votoBranco*100)/(votoValido+votoBranco+votoNulo);
-    float porcetagemVotosNulos = (votoNulo*100)/(votoValido+votoBranco+votoNulo);
-    float porcetagemRelacaoAosEleitores = (votoValido*100)/(votoValido+votoBranco+votoNulo);
-    float porcetagemVotosNulosBrancos = ((votoBranco+votoNulo)*100)/(votoValido+votoBranco+votoNulo);
+    float porcetagemVotosValidos = (float)(votoValido*100)/(votoValido+votoBranco+votoNulo);
+    float porcetagemVotosBranco = (float)(votoBranco*100)/(votoValido+votoBranco+votoNulo);
+    float porcetagemVotosNulos = (float)(votoNulo*100)/(votoValido+votoBranco+votoNulo);
+    float porcetagemRelacaoAosEleitores = (float)(votoValido*100)/(votoValido+votoBranco+votoNulo);
+    float porcetagemVotosNulosBrancos = (float)((votoBranco+votoNulo)*100)/(votoValido+votoBranco+votoNulo);
 
     fprintf(boletim, "Votos Validos: %d\nVotos totais: %d\nVotos Brancos: %d\nVotos Nulos: %d\n",votoValido, votoValido+votoBranco+votoNulo, votoBranco, votoNulo);
     fprintf(boletim,"\n");
-    fprintf(boletim, "Porcentagem de votos validos: %.2f%\nPorcentagem de votos brancos: %.2f%\nPorcentagem de votos nulos: %.2f%\nPorcentagem em Relação aos eleitores: %.2f%\nPorcentagem dos votos nulos e brancos: %.2f%\n", porcetagemVotosValidos, porcetagemVotosBranco, porcetagemVotosNulos,porcetagemRelacaoAosEleitores, porcetagemVotosNulosBrancos);
+    fprintf(boletim, "Porcentagem de votos validos: %.2f%%\nPorcentagem de votos brancos: %.2f%%\nPorcentagem de votos nulos: %.2f%%\nPorcentagem em Relação aos eleitores: %.2f%%\nPorcentagem dos votos nulos e brancos: %.2f%%\n\n", porcetagemVotosValidos, porcetagemVotosBranco, porcetagemVotosNulos,porcetagemRelacaoAosEleitores, porcetagemVotosNulosBrancos);
 }
 
 void liberar_lista(Lista *lst){
@@ -178,16 +177,34 @@ int verificar_numero(Lista *lst, int voto){
     return voto;
 }
 
-int verificar_segundoTurno(Lista *lst, int quantidadeEleitores, FILE *boletim){
-    int candidatoVencedor = 0;
-
+void verificar_segundoTurno(Lista *lst, int quantidadeEleitores, FILE *boletim){
     if(lst == NULL){
         printf("Nao ha chapas cadastradas!\n");
         return;
     }
+    int segundoTurno = 0;
 
     printf("Votos validos: %d\n", votoValido);
+
+    Lista *atual = lst;
+    Lista *chapaMaisVotada1 = NULL;
+    Lista *chapaMaisVotada2 = NULL;
+
+    while(atual != NULL){
+        if(chapaMaisVotada1 == NULL || atual->inicio->votos > chapaMaisVotada1->inicio->votos){
+            chapaMaisVotada2 = chapaMaisVotada1;
+            chapaMaisVotada1 = atual;
+        } else if(chapaMaisVotada2 == NULL || atual->inicio->votos > chapaMaisVotada2->inicio->votos){
+            chapaMaisVotada2 = atual;
+        }
+        atual = atual->prox;
+    }
+    Lista *listaSegundoTurno = NULL;
+    listaSegundoTurno = inserir_chapas(listaSegundoTurno, chapaMaisVotada1->inicio);
+    listaSegundoTurno = inserir_chapas(listaSegundoTurno, chapaMaisVotada2->inicio);
+
     Lista *chapaVencedora = NULL;
+    int candidatoVencedor = 0;
 
     if(quantidadeEleitores >= 10 && votoValido > 0){
         for(chapaVencedora = lst; chapaVencedora != NULL; chapaVencedora = chapaVencedora->prox){
@@ -195,16 +212,66 @@ int verificar_segundoTurno(Lista *lst, int quantidadeEleitores, FILE *boletim){
                 fprintf(boletim, "Chapa vencedora: %s\n", chapaVencedora->inicio->candidato);
                 printf("Candidato vencedor: %s\n", chapaVencedora->inicio->candidato);
                 candidatoVencedor = 1;
-                return 0;
             }
         }
     }
     if(candidatoVencedor){
-        printf("Nao precisara de 2 turno");
-        return 0;
+        fprintf(boletim, "Nao precisa de segundo turno\n");
+        printf("Nao precisa de segundo turno");
+        return;
     }
     else{
-        printf("Nao houve vencedor no primeiro turno, vamos para o segundo turno!\n");
-        return 1;
+        fprintf(boletim, "Nao houve vencedor no primeiro turno, vamos para o segundo turno!\n");
+        printf("Nao houve vencedor no primeiro turno, vamos para o segundo turno!\n\n");
+        segundoTurno = 1;
     }
+
+    if(segundoTurno){
+        FILE *boletimSegundoTurno = fopen("boletimTurno2.txt", "w");
+        printf("-------------------------\n");
+        printf("|Chapas do Segundo Turno|\n");
+        printf("-------------------------\n");
+
+        votoBranco = 0; votoNulo = 0; votoValido = 0;
+        chapaMaisVotada1->inicio->votos = 0;
+        chapaMaisVotada2->inicio->votos = 0;
+
+        printar_chapas(listaSegundoTurno);
+        for(int i = 0; i < quantidadeEleitores; i++){
+            votacao(listaSegundoTurno);
+        }
+        system("cls");
+        if(chapaMaisVotada1->inicio->votos == chapaMaisVotada2->inicio->votos){
+            printf("Empate! Vamos verificar o candidato mais velho\n");
+            verificarMaisVelho(listaSegundoTurno, boletimSegundoTurno);
+        } else{
+            printf("Candidato vencedor: %s\n", chapaMaisVotada1->inicio->candidato);
+            fprintf(boletimSegundoTurno, "Candidato vencedor: %s\n", chapaMaisVotada1->inicio->candidato);
+        }
+        printar_boletim(listaSegundoTurno, boletimSegundoTurno); 
+        liberar_lista(listaSegundoTurno);
+        fclose(boletimSegundoTurno);
+    }
+}
+
+void verificarMaisVelho(Lista *lst, FILE *boletim){
+    Lista *atual = lst;
+    Lista *maisVelho = NULL;
+
+    while(atual != NULL){
+        if(maisVelho == NULL || atual->inicio->data_nascimento[2] < maisVelho->inicio->data_nascimento[2]){
+            maisVelho = atual;
+        } else if(atual->inicio->data_nascimento[2] == maisVelho->inicio->data_nascimento[2]){
+            if(atual->inicio->data_nascimento[1] < maisVelho->inicio->data_nascimento[1]){
+                maisVelho = atual;
+            } else if(atual->inicio->data_nascimento[1] == maisVelho->inicio->data_nascimento[1]){
+                if(atual->inicio->data_nascimento[0] < maisVelho->inicio->data_nascimento[0]){
+                    maisVelho = atual;
+                }
+            }
+        }
+        atual = atual->prox;
+    }
+    printf("Candidato mais velho e  %s, logo e o vencedor!\n", maisVelho->inicio->candidato);
+    fprintf(boletim, "Candidato mais velho e o %s, logo e o vencedor!\n", maisVelho->inicio->candidato);
 }

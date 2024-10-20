@@ -7,10 +7,9 @@ int main(){
     int qnt_eleitores;
     int qnt_chapas;
     Lista *lst = NULL;
-
     FILE *boletimPrimeiroTurno = fopen("boletimTurno1.txt", "w");
-
     Chapas *chapas = criar_chapas();
+    
     printf("-----------------------------------------\n");
     printf("|Eleicoes do Executivo Municipal de 2024|\n");
     printf("-----------------------------------------\n");
@@ -40,29 +39,15 @@ int main(){
         votacao(lst);
     }
 
-    printar_boletimPrimeiroTurno(lst, boletimPrimeiroTurno);
+    printar_boletim(lst, boletimPrimeiroTurno);
     
     system("cls");
     printf("----------------------\n");
     printf("|Resultado do 1 Turno|\n");
     printf("----------------------\n");
-    
-    int resultado = verificar_segundoTurno(lst, qnt_eleitores, boletimPrimeiroTurno);
-    
+
+    verificar_segundoTurno(lst, qnt_eleitores, boletimPrimeiroTurno);
+
     liberar_lista(lst);
     fclose(boletimPrimeiroTurno);
-
-    if(resultado == 1){
-        FILE *boletimSegundoTurno = fopen("boletimTurno2.txt", "w");
-        system("cls");
-        printf("-----------------------------\n");
-        printf("|Candidatos do Segundo turno|\n");
-        printf("-----------------------------\n");
-        for(int i = 0; i < qnt_eleitores; i++){
-            votacao(lst);
-        }
-        printar_boletimPrimeiroTurno(lst, boletimSegundoTurno);
-        liberar_lista(lst);
-        fclose(boletimSegundoTurno);
-    }
 }

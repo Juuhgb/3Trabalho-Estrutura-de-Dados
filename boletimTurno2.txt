@@ -1,0 +1,24 @@
+Candidato mais velho e o juliana, logo e o vencedor!
+Chapa 1
+Prefeito: juliana
+Vice: luana
+Numero: 22
+Votos: 5
+
+Chapa 2
+Prefeito: bolso
+Vice: lula
+Numero: 13
+Votos: 5
+
+Votos Validos: 10
+Votos totais: 10
+Votos Brancos: 0
+Votos Nulos: 0
+
+Porcentagem de votos validos: 100.00%
+Porcentagem de votos brancos: 0.00%
+Porcentagem de votos nulos: 0.00%
+Porcentagem em Relação aos eleitores: 100.00%
+Porcentagem dos votos nulos e brancos: 0.00%
+
