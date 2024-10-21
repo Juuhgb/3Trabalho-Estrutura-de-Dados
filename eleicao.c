@@ -199,7 +199,7 @@ void verificar_segundoTurno(Lista *lst, int quantidadeEleitores, FILE *boletim){
         }
         atual = atual->prox;
     }
-    
+
     Lista *listaSegundoTurno = NULL;
     listaSegundoTurno = inserir_chapas(listaSegundoTurno, chapaMaisVotada1->inicio);
     listaSegundoTurno = inserir_chapas(listaSegundoTurno, chapaMaisVotada2->inicio);
@@ -279,6 +279,6 @@ void verificarMaisVelho(Lista *lst, FILE *boletim){
         }
         atual = atual->prox;
     }
-    printf("Candidato mais velho e  %s, logo e o vencedor!\n", maisVelho->inicio->candidato);
+    printf("Candidato mais velho e %s, logo e o vencedor!\n", maisVelho->inicio->candidato);
     fprintf(boletim, "Candidato mais velho e o %s, logo e o vencedor!\n", maisVelho->inicio->candidato);
 }
