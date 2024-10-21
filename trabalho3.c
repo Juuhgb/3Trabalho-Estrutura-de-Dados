@@ -20,8 +20,8 @@ int main(){
     printf("->Quantidade de chapas:\n");
     scanf("%d", &qnt_chapas);
     
-    while(qnt_chapas > 100){
-        printf("Maximo de chapas e 100, digite outro valor\n");
+    while(qnt_chapas >= 100){
+        printf("Maximo de chapas e 99, digite outro valor\n");
         scanf("%d", &qnt_chapas);
     }
     getchar();
