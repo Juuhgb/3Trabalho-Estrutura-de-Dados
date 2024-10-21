@@ -251,10 +251,15 @@ void verificar_segundoTurno(Lista *lst, int quantidadeEleitores, FILE *boletim){
         if(chapaMaisVotada1->inicio->votos == chapaMaisVotada2->inicio->votos){
             printf("Empate! Vamos verificar o candidato mais velho\n");
             verificarMaisVelho(listaSegundoTurno, boletimSegundoTurno);
-        } else{
+        } else if (chapaMaisVotada1->inicio->votos > chapaMaisVotada2->inicio->votos){
             printf("Candidato vencedor: %s\n", chapaMaisVotada1->inicio->candidato);
             fprintf(boletimSegundoTurno, "Candidato vencedor: %s\n", chapaMaisVotada1->inicio->candidato);
         }
+        else{
+            printf("Candidato vencedor: %s\n", chapaMaisVotada2->inicio->candidato);
+            fprintf(boletimSegundoTurno, "Candidato vencedor: %s\n", chapaMaisVotada2->inicio->candidato);
+        }
+        
         printar_boletim(listaSegundoTurno, boletimSegundoTurno); 
         liberar_lista(listaSegundoTurno);
         fclose(boletimSegundoTurno);

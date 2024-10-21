@@ -1,15 +1,15 @@
-Candidato mais velho e o luana, logo e o vencedor!
+Candidato vencedor: lula
 Chapa 1
-Prefeito: juliana
-Vice: ju
-Numero: 13
-Votos: 5
-
-Chapa 2
-Prefeito: luana
+Prefeito: mouro
 Vice: bolso
 Numero: 22
-Votos: 5
+Votos: 0
+
+Chapa 2
+Prefeito: lula
+Vice: lulao
+Numero: 13
+Votos: 10
 
 Votos Validos: 10
 Votos totais: 10
