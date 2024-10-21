@@ -49,5 +49,5 @@ int main(){
     verificar_segundoTurno(lst, qnt_eleitores, boletimPrimeiroTurno);
 
     liberar_lista(lst);
-    //fclose(boletimPrimeiroTurno);
+    fclose(boletimPrimeiroTurno);
 }
